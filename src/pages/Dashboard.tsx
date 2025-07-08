@@ -1,128 +1,57 @@
-import { Dumbbell, Calendar, Flame, Trophy, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import StatCard from "../components/StatCard";
-import ProgressChart from "../components/ProgressChart";
-import WorkoutCard from "../components/WorkoutCard";
-
-// Mock data
-const workoutData = [
-  { date: '2025-04-01', value: 45 },
-  { date: '2025-04-02', value: 0 },
-  { date: '2025-04-03', value: 60 },
-  { date: '2025-04-04', value: 0 },
-  { date: '2025-04-05', value: 75 },
-  { date: '2025-04-06', value: 0 },
-  { date: '2025-04-07', value: 45 },
-  { date: '2025-04-08', value: 30 },
-  { date: '2025-04-09', value: 0 },
-  { date: '2025-04-10', value: 60 },
-  { date: '2025-04-11', value: 0 },
-  { date: '2025-04-12', value: 90 },
-  { date: '2025-04-13', value: 0 },
-  { date: '2025-04-14', value: 45 },
-];
-
-const weightData = [
-  { date: '2025-04-01', value: 185 },
-  { date: '2025-04-03', value: 184 },
-  { date: '2025-04-05', value: 184 },
-  { date: '2025-04-07', value: 183 },
-  { date: '2025-04-10', value: 182 },
-  { date: '2025-04-12', value: 181 },
-  { date: '2025-04-14', value: 180 },
-];
-
-const recentWorkouts = [
-  {
-    date: new Date(2025, 3, 22),
-    title: "Upper Body Power",
-    exercises: [
-      { name: "Bench Press", sets: 4, reps: 8 },
-      { name: "Pull-ups", sets: 3, reps: 10 },
-      { name: "Shoulder Press", sets: 3, reps: 12 },
-    ],
-    duration: 65,
-  },
-  {
-    date: new Date(2025, 3, 20),
-    title: "Leg Day",
-    exercises: [
-      { name: "Squats", sets: 4, reps: 10 },
-      { name: "Lunges", sets: 3, reps: 12 },
-      { name: "Leg Press", sets: 3, reps: 15 },
-    ],
-    duration: 75,
-  },
-];
+import { LogOut, User } from "lucide-react";
 
 export default function Dashboard() {
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
-        <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2">
-          <Dumbbell size={18} />
-          <span>New Workout</span>
-        </button>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard 
-          title="Workouts This Week" 
-          value="4" 
-          change={{ value: 20, isPositive: true }}
-          icon={Dumbbell}
-        />
-        <StatCard 
-          title="Workout Streak" 
-          value="6 days" 
-          icon={Calendar}
-        />
-        <StatCard 
-          title="Calories Burned" 
-          value="2,580" 
-          change={{ value: 12, isPositive: true }}
-          icon={Flame}
-          iconClassName="bg-orange-500"
-        />
-        <StatCard 
-          title="Personal Records" 
-          value="8" 
-          change={{ value: 2, isPositive: true }}
-          icon={Trophy}
-          iconClassName="bg-amber-500"
-        />
-      </div>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ProgressChart 
-          title="Workout Duration (minutes)" 
-          data={workoutData} 
-          dataKey="workout-time" 
-          color="#6366F1" 
-        />
-        <ProgressChart 
-          title="Weight Tracking (lbs)" 
-          data={weightData} 
-          dataKey="weight" 
-          color="#EC4899" 
-        />
-      </div>
-      
-      <div>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-medium">Recent Workouts</h2>
-          <Link to="/history" className="text-indigo-600 text-sm flex items-center gap-1 hover:text-indigo-800 transition-colors">
-            View All <ArrowRight size={16} />
-          </Link>
+    <div className="min-h-screen bg-gray-50">
+      <header className="bg-white shadow">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <h1 className="text-xl font-bold text-gray-900">Dashboard</h1>
+            </div>
+            <div className="flex items-center">
+              <div className="flex items-center space-x-4">
+                <div className="flex flex-col items-end">
+                  <span className="text-sm font-medium text-gray-900">User Name</span>
+                  <span className="text-xs text-gray-500">user@example.com</span>
+                </div>
+                <div className="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center text-white">
+                  <User size={18} />
+                </div>
+                <Link
+                  to="/"
+                  className="ml-4 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 flex items-center"
+                >
+                  <LogOut size={18} className="mr-1" />
+                  Logout
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {recentWorkouts.map((workout, i) => (
-            <WorkoutCard key={i} {...workout} />
-          ))}
+      </header>
+
+      <main className="py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white shadow overflow-hidden sm:rounded-lg p-6">
+            <div className="text-center py-16">
+              <h2 className="text-3xl font-extrabold text-gray-900">Welcome to your Dashboard!</h2>
+              <p className="mt-2 text-lg text-gray-600">
+                You have successfully logged in to your account.
+              </p>
+              <div className="mt-6 flex justify-center">
+                <Link
+                  to="/"
+                  className="px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
+                >
+                  Go to Home
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
