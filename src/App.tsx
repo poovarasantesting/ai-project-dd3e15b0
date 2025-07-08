@@ -1,19 +1,21 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import WorkoutHistory from "./pages/WorkoutHistory";
-import PersonalRecords from "./pages/PersonalRecords";
-import Layout from "./components/Layout";
-import "./App.css";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import Login from "./pages/Login";
+import Chat from "./pages/Chat";
+import { useAuthStore } from "./store/authStore";
 
 function App() {
+  const { isAuthenticated } = useAuthStore();
+
   return (
     <BrowserRouter>
+      <Toaster position="top-center" />
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="history" element={<WorkoutHistory />} />
-          <Route path="records" element={<PersonalRecords />} />
-        </Route>
+        <Route path="/" element={isAuthenticated ? <Navigate to="/chat" /> : <Login />} />
+        <Route 
+          path="/chat" 
+          element={isAuthenticated ? <Chat /> : <Navigate to="/" />} 
+        />
       </Routes>
     </BrowserRouter>
   );
